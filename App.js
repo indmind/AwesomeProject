@@ -14,7 +14,7 @@ const AppNavigator = createStackNavigator(
     Splash: {
       screen: SplashScreen,
       navigationOptions: {
-        header: null,
+        headerShown: false,
       },
     },
     Login: {
@@ -32,16 +32,29 @@ const AppNavigator = createStackNavigator(
     },
     Home: {
       screen: HomeScreen,
+      navigationOptions: {
+        headerShown: false,
+      },
     },
     Register: {
       screen: RegisterScreen,
+      navigationOptions: ({navigation}) => ({
+        headerRight: () => (
+          <TouchableWithoutFeedback
+            onPress={() => {
+              navigation.navigate('Login');
+            }}>
+            <Text style={{paddingHorizontal: 15}}>Log in</Text>
+          </TouchableWithoutFeedback>
+        ),
+      }),
     },
   },
   {
     initialRouteName: 'Splash',
     defaultNavigationOptions: ({navigation}) => ({
       headerTitleAlign: {alignItem: 'right'},
-      headerTitle: null,
+      headerTitle: () => null,
       headerStyle: {
         elevation: 0,
         shadowOpacity: 0,

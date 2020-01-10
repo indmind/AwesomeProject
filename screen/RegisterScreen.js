@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
+import {View, Text, TextInput, Button, TouchableHighlight} from 'react-native';
+
+import {styles} from '../utils/MainStyles';
 
 export default class RegisterScreen extends Component {
   constructor(props) {
@@ -48,17 +50,21 @@ export default class RegisterScreen extends Component {
     }
 
     return (
-      <View style={{padding: 10}}>
+      <View style={styles.container}>
+        <View style={{width: 200, alignItems: 'stretch', paddingBottom: 30}}>
+          <Text style={styles.title}>Create your account</Text>
+        </View>
+
         <TextInput
-          style={{height: 40}}
-          placeholder="Username"
+          style={styles.textInput}
+          placeholder="Your Name"
           autoCompleteType="username"
           onChangeText={username => this.setState({username})}
           value={this.state.username}
         />
 
         <TextInput
-          style={{height: 40}}
+          style={styles.textInput}
           placeholder="Email"
           autoCompleteType="email"
           keyboardType="email-address"
@@ -67,7 +73,7 @@ export default class RegisterScreen extends Component {
         />
 
         <TextInput
-          style={{height: 40}}
+          style={styles.textInput}
           placeholder="Password"
           secureTextEntry={true}
           autoCompleteType="password"
@@ -75,15 +81,17 @@ export default class RegisterScreen extends Component {
           value={this.state.password}
         />
 
-        <Button onPress={this.actionRegister.bind(this)} title="Register" />
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.actionRegister.bind(this)}
+          underlayColor="white">
+          <Text style={styles.buttonText}>Join us</Text>
+        </TouchableHighlight>
 
-        <View style={{marginTop: 10}}>
-          <Button
-            title="Login"
-            onPress={() => {
-              this.props.navigation.navigate('Login');
-            }}
-          />
+        <View style={{width: 220, marginTop: 30}}>
+          <Text style={styles.textMuted}>
+            By pressing "Join Us" you agree to our term and & conditions
+          </Text>
         </View>
       </View>
     );

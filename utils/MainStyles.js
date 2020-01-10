@@ -1,0 +1,50 @@
+import {StyleSheet} from 'react-native';
+
+export const styles = StyleSheet.create({
+  container: {paddingTop: 15, flex: 1, alignItems: 'center'},
+  title: {fontSize: 30, fontWeight: 'bold', textAlign: 'center'},
+  textInput: {
+    alignSelf: 'stretch',
+    backgroundColor: '#fff',
+    marginHorizontal: 30,
+    marginVertical: 6,
+    borderRadius: 999,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    elevation: 3,
+    shadowOffset: {width: 5, height: 5},
+    shadowColor: 'grey',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+  },
+  button: {
+    alignSelf: 'stretch',
+    marginHorizontal: 30,
+    marginTop: 20,
+    borderRadius: 999,
+    paddingVertical: 14,
+    paddingHorizontal: 15,
+    backgroundColor: '#43cdbb',
+    alignItems: 'center',
+    elevation: 3,
+    shadowOffset: {width: 5, height: 5},
+    shadowColor: 'grey',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+  },
+  buttonText: {
+    color: 'white',
+  },
+  circleImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    borderColor: '#fff',
+    borderWidth: 7,
+    marginVertical: 30,
+  },
+  textMuted: {
+    color: 'grey',
+    textAlign: 'center',
+  },
+});

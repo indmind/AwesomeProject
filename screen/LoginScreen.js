@@ -1,16 +1,9 @@
 /* eslint-disable no-alert */
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Image,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native';
+import {View, Text, TextInput, Image, TouchableHighlight} from 'react-native';
 
 import {storeUser} from '../utils/StorageHelper';
+import {styles} from '../utils/MainStyles';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -75,8 +68,8 @@ export default class LoginScreen extends Component {
     }
 
     return (
-      <View style={{paddingTop: 15, flex: 1, alignItems: 'center'}}>
-        <Text style={{fontSize: 30, fontWeight: 'bold'}}>Log in</Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Log in</Text>
 
         <Image
           source={{
@@ -110,54 +103,7 @@ export default class LoginScreen extends Component {
           underlayColor="white">
           <Text style={styles.buttonText}>Log in</Text>
         </TouchableHighlight>
-
-        <View style={{marginTop: 10}}>
-          <Button
-            title="Register"
-            onPress={() => {
-              this.props.navigation.navigate('Register');
-            }}
-          />
-        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textInput: {
-    alignSelf: 'stretch',
-    backgroundColor: '#fff',
-    marginHorizontal: 50,
-    marginVertical: 5,
-    borderRadius: 999,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    elevation: 3,
-    shadowOffset: {width: 5, height: 5},
-    shadowColor: 'grey',
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-  },
-  button: {
-    alignSelf: 'stretch',
-    marginHorizontal: 50,
-    marginTop: 20,
-    borderRadius: 999,
-    paddingVertical: 14,
-    paddingHorizontal: 15,
-    backgroundColor: '#43cdbb',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-  },
-  circleImage: {
-    width: 110,
-    height: 110,
-    borderRadius: 55,
-    borderColor: '#fff',
-    borderWidth: 7,
-    marginVertical: 30,
-  },
-});
