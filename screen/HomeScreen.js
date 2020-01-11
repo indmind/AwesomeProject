@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {Button, View, Text, Image, StyleSheet, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+  StatusBar,
+  TouchableHighlight,
+} from 'react-native';
 import {NavigationActions, StackActions} from 'react-navigation';
 
 import {getUser, removeUser} from '../utils/StorageHelper';
@@ -7,11 +16,16 @@ import {getUser, removeUser} from '../utils/StorageHelper';
 import ListItem from '../components/ListItem';
 import Icon from 'react-native-vector-icons/Entypo';
 
+const headerHeight = 160;
+const menuBoxSize = 100;
+const contentMargin = 20;
+
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      listHeight: this.computeListHeight(),
       user: null,
       listData: [
         {key: 'Security', status: 'completed', icon: 'lock'},
@@ -24,6 +38,14 @@ export default class HomeScreen extends Component {
     getUser().then(user => this.setState({user}));
   }
 
+  onLayout(event) {
+    this.setState({listHeight: this.computeListHeight()});
+  }
+
+  computeListHeight() {
+    return Dimensions.get('window').height - headerHeight;
+  }
+
   render() {
     if (this.state.user === null) {
       return (
@@ -34,18 +56,32 @@ export default class HomeScreen extends Component {
     }
 
     return (
-      <View style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          <View style={{position: 'absolute', top: 20, left: 20, elevation: 2}}>
-            <Icon name="menu" size={30} color="#fff" />
+      <View style={{flex: 1}} onLayout={this.onLayout.bind(this)}>
+        <StatusBar backgroundColor="#37469b" barStyle="light-content" />
+
+        <View style={{flex: 0}}>
+          <View style={styles.menuIcon}>
+            <TouchableHighlight
+              onLongPress={async () => {
+                await removeUser();
+
+                const resetAction = StackActions.reset({
+                  index: 0,
+                  actions: [NavigationActions.navigate({routeName: 'Login'})],
+                });
+
+                this.props.navigation.dispatch(resetAction);
+              }}>
+              <Icon name="menu" size={30} color="#fff" />
+            </TouchableHighlight>
           </View>
 
           <Image
             source={{
               uri:
-                'https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+                'https://aviatren.com/wp-content/uploads/2019/08/An-Emirates-Airbus-A380-1205x786.jpg',
             }}
-            style={{height: 150}}
+            style={{height: headerHeight}}
           />
 
           <View style={styles.colorOverlay} />
@@ -66,8 +102,7 @@ export default class HomeScreen extends Component {
           </View>
         </View>
 
-        {/* <ScrollView> */}
-        <View style={styles.listContainer}>
+        <View style={[styles.listContainer, {height: this.state.listHeight}]}>
           <FlatList
             contentContainerStyle={styles.listContentContainer}
             data={this.state.listData}
@@ -76,23 +111,6 @@ export default class HomeScreen extends Component {
             )}
           />
         </View>
-        {/* </ScrollView> */}
-
-        {/* <View style={{marginTop: 10}}>
-          <Button
-            onPress={async () => {
-              await removeUser();
-
-              const resetAction = StackActions.reset({
-                index: 0,
-                actions: [NavigationActions.navigate({routeName: 'Login'})],
-              });
-
-              this.props.navigation.dispatch(resetAction);
-            }}
-            title="Logout"
-          />
-        </View> */}
       </View>
     );
   }
@@ -103,14 +121,22 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    top: 100,
+    top: headerHeight - menuBoxSize / 2,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
+    paddingHorizontal: contentMargin,
+  },
+  menuIcon: {
+    position: 'absolute',
+    zIndex: 2,
+    top: contentMargin,
+    left: contentMargin,
+    elevation: 2,
   },
   menuBox: {
-    width: 100,
-    height: 100,
+    width: menuBoxSize,
+    height: menuBoxSize,
     backgroundColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
@@ -123,34 +149,38 @@ const styles = StyleSheet.create({
   },
   menuBoxText: {
     fontSize: 30,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: 'OpenSans-Bold',
   },
   menuBoxDesc: {
     textAlign: 'center',
     fontSize: 11,
     marginTop: 5,
-    color: '#222',
+    color: '#444',
+    fontWeight: 'bold',
   },
   colorOverlay: {
-    backgroundColor: '#5f00cc5c',
-    height: 150,
+    backgroundColor: '#37469bdd',
+    height: headerHeight,
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
   },
   listContainer: {
-    flex: 3,
-    flexGrow: 3,
-    // position: 'absolute',
+    flex: 2,
+    flexGrow: 1,
+    position: 'absolute',
     left: 0,
     right: 0,
-    top: 10,
+    top: headerHeight,
+    // height: Dimensions.get('window').height - headerHeight,
+    backgroundColor: '#f8f8f8',
     overflow: 'scroll',
   },
   listContentContainer: {
-    paddingBottom: 20,
-    paddingTop: 55,
-    paddingHorizontal: 15,
+    paddingBottom: 10,
+    paddingTop: menuBoxSize / 2 + 8,
+    paddingHorizontal: contentMargin,
   },
 });

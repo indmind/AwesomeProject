@@ -1,7 +1,13 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {paddingTop: 15, flex: 1, alignItems: 'center'},
+  container: {
+    paddingTop: 15,
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#f5f5f3',
+    fontFamily: 'NotoSans-Regular',
+  },
   title: {fontSize: 30, fontWeight: 'bold', textAlign: 'center'},
   textInput: {
     alignSelf: 'stretch',

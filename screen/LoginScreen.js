@@ -1,6 +1,13 @@
 /* eslint-disable no-alert */
 import React, {Component} from 'react';
-import {View, Text, TextInput, Image, TouchableHighlight} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableHighlight,
+  StatusBar,
+} from 'react-native';
 
 import {storeUser} from '../utils/StorageHelper';
 import {styles} from '../utils/MainStyles';
@@ -69,6 +76,8 @@ export default class LoginScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="#f5f5f3" barStyle="dark-content" />
+
         <Text style={styles.title}>Log in</Text>
 
         <Image

@@ -7,9 +7,9 @@ export default class ListItem extends Component {
     super(props);
 
     this.statusColor = {
-      completed: 'green',
-      invalid: 'red',
-      pending: 'yellow',
+      completed: '#5eb274',
+      invalid: '#e65151',
+      pending: '#e5ad3b',
     };
   }
   render() {
@@ -46,7 +46,7 @@ export default class ListItem extends Component {
 const styles = StyleSheet.create({
   listItem: {
     backgroundColor: 'white',
-    margin: 7,
+    marginVertical: 7,
     borderRadius: 10,
     height: 100,
     flexDirection: 'row',
@@ -57,17 +57,18 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
   },
   itemName: {
-    fontWeight: 'bold',
-    color: '#444',
+    color: '#353535',
+    fontFamily: 'OpenSans-Bold',
   },
   itemCategory: {
     fontSize: 10,
     marginRight: 5,
-    backgroundColor: 'lightgrey',
-    color: '#222',
+    backgroundColor: '#eaeaea',
+    color: '#404040',
     padding: 1,
     paddingHorizontal: 10,
     borderRadius: 999,
+    fontFamily: 'OpenSans-Regular',
   },
   itemInfo: {
     flex: 3,
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
   },
   itemStatus: {
     fontSize: 10,
+    fontWeight: '700',
   },
   reportText: {
     fontSize: 11,
@@ -96,6 +98,6 @@ const styles = StyleSheet.create({
   },
   reportName: {
     fontWeight: 'bold',
-    color: '#444',
+    color: '#353535',
   },
 });

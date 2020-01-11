@@ -59,7 +59,7 @@ const AppNavigator = createStackNavigator(
         elevation: 0,
         shadowOpacity: 0,
         borderBottomWidth: 0,
-        backgroundColor: 'transparent',
+        backgroundColor: '#f5f5f3',
       },
       headerTintColor: '#43cdbb',
       headerRight: () => (
