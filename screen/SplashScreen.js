@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import {getUser} from '../utils/StorageHelper';
 
 export default class SplashScreen extends Component {
   constructor(props) {
@@ -10,17 +10,15 @@ export default class SplashScreen extends Component {
   }
 
   authenticateSession() {
-    AsyncStorage.getItem('user')
+    getUser()
       .then(user => {
-        if (user != null) {
-          this.props.navigation.replace('Home', {
-            username: JSON.parse(user).username,
-          });
+        if (user !== null) {
+          this.props.navigation.replace('Home');
         } else {
           this.props.navigation.replace('Login');
         }
       })
-      .catch(e => {});
+      .catch(() => {});
   }
 
   render() {

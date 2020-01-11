@@ -4,7 +4,11 @@ export async function getUser() {
   try {
     const user = await AsyncStorage.getItem('user');
 
-    return JSON.parse(user);
+    if (user !== null) {
+      return JSON.parse(user);
+    }
+
+    return null;
   } catch (e) {
     throw e;
   }

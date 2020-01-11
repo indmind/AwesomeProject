@@ -9,7 +9,7 @@ export default class RegisterScreen extends Component {
     this.state = {username: '', email: '', password: '', isLoading: false};
   }
 
-  actionRegister() {
+  async actionRegister() {
     if (!this.state.username) {
       return alert('Harap isi username');
     }
@@ -22,26 +22,34 @@ export default class RegisterScreen extends Component {
 
     this.setState(() => ({isLoading: true}));
 
-    fetch('http://192.168.0.46:8080/register.php', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify(this.state),
-    })
-      .then(res => res.text())
-      .then(result => {
-        this.setState(() => ({isLoading: false}));
+    let response;
 
-        if (result === 'register_success') {
-          alert('Berhasil Terdafar, silahkan login');
-
-          this.props.navigation.navigate('Login');
-        } else {
-          alert('Gagal Register');
-        }
+    try {
+      response = await fetch('http://192.168.0.46:8080/register.php', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(this.state),
       });
+    } catch (e) {
+      alert(e.message);
+      this.setState({isLoading: false});
+      return;
+    }
+
+    const result = await response.text();
+
+    this.setState({isLoading: false});
+
+    if (result === 'register_success') {
+      alert('Berhasil Terdafar, silahkan login');
+
+      this.props.navigation.navigate('Login');
+    } else {
+      alert('Gagal Register');
+    }
   }
 
   render() {

@@ -56,7 +56,9 @@ export default class HomeScreen extends Component {
     }
 
     return (
-      <View style={{flex: 1}} onLayout={this.onLayout.bind(this)}>
+      <View
+        style={{flex: 1, backgroundColor: '#f8f8f8'}}
+        onLayout={this.onLayout.bind(this)}>
         <StatusBar backgroundColor="#37469b" barStyle="light-content" />
 
         <View style={{flex: 0}}>
@@ -88,15 +90,15 @@ export default class HomeScreen extends Component {
 
           <View style={styles.menuBoxContainer}>
             <View style={styles.menuBox}>
-              <Text style={{color: '#0aa5de', ...styles.menuBoxText}}>55</Text>
+              <Text style={[styles.menuBoxText, {color: '#0aa5de'}]}>55</Text>
               <Text style={styles.menuBoxDesc}>Issues Reported</Text>
             </View>
             <View style={styles.menuBox}>
-              <Text style={{color: '#54c881', ...styles.menuBoxText}}>03</Text>
+              <Text style={[styles.menuBoxText, {color: '#54c881'}]}>03</Text>
               <Text style={styles.menuBoxDesc}>Issues Resolved</Text>
             </View>
             <View style={styles.menuBox}>
-              <Text style={{color: '#f5ad18', ...styles.menuBoxText}}>45</Text>
+              <Text style={[styles.menuBoxText, {color: '#f5ad18'}]}>45</Text>
               <Text style={styles.menuBoxDesc}>Pending</Text>
             </View>
           </View>
