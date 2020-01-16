@@ -15,6 +15,5 @@ if ($result->num_rows) {
     echo '{"status": "login_success", "user": '.$user.'}';
 } else {
     echo '{"status": "login_failed"}';
-
 }
 ?>

@@ -11,6 +11,7 @@ import {
 
 import {storeUser} from '../utils/StorageHelper';
 import {styles} from '../utils/MainStyles';
+import {login} from '../utils/Services';
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -31,17 +32,10 @@ export default class LoginScreen extends Component {
     this.setState(() => ({isLoading: true}));
 
     try {
-      response = await fetch('http://192.168.0.46:8080/login.php', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify(this.state),
-      });
+      response = await login(JSON.stringify(this.state));
     } catch (e) {
       alert(e.message);
-      this.setState(() => ({isLoading: false}));
+      this.setState({isLoading: false});
       return;
     }
 
@@ -49,7 +43,7 @@ export default class LoginScreen extends Component {
       result = await response.json();
     } catch (e) {
       alert('error json  -  ' + JSON.stringify(e));
-      this.setState(() => ({isLoading: false}));
+      this.setState({isLoading: false});
       return;
     }
 
@@ -59,14 +53,14 @@ export default class LoginScreen extends Component {
         this.props.navigation.replace('Home', {username: result.user.username});
       } catch (e) {
         alert(e.message);
-        this.setState(() => ({isLoading: false}));
+        this.setState({isLoading: false});
         return;
       }
     } else {
       alert('Gagal Login');
     }
 
-    this.setState(() => ({isLoading: false}));
+    this.setState({isLoading: false});
   }
 
   render() {

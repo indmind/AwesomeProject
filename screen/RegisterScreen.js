@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, TextInput, Button, TouchableHighlight} from 'react-native';
 
 import {styles} from '../utils/MainStyles';
+import {register} from '../utils/Services';
 
 export default class RegisterScreen extends Component {
   constructor(props) {
@@ -25,14 +26,7 @@ export default class RegisterScreen extends Component {
     let response;
 
     try {
-      response = await fetch('http://192.168.0.46:8080/register.php', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify(this.state),
-      });
+      response = await register(JSON.stringify(this.state));
     } catch (e) {
       alert(e.message);
       this.setState({isLoading: false});
