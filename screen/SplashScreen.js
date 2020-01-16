@@ -18,7 +18,7 @@ export default class SplashScreen extends Component {
           this.props.navigation.replace('Login');
         }
       })
-      .catch(() => {});
+      .catch(e => alert(e.message));
   }
 
   render() {
